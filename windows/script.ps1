@@ -1,4 +1,4 @@
-$VERSION = "v1.1.0"
+$VERSION = "v1.2.0"
 $URL = "https://emat.dk/"
 $SCRIPT1 = "ctl00_ContentPlaceHolder1_ImageButton_RegnehierarkietS.click()"
 $SCRIPT2 = "Link_Start2.click()"

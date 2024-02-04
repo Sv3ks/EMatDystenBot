@@ -1,4 +1,4 @@
-$VERSION = "v1.2.0"
+$VERSION = "v1.2.1"
 $URL = "https://emat.dk/"
 $SCRIPT1 = "ctl00_ContentPlaceHolder1_ImageButton_RegnehierarkietS.click()"
 $SCRIPT2 = "Link_Start2.click()"
@@ -26,6 +26,18 @@ function SolveExercise {
 	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
 }
 
+function GoToHarvestingSite {
+	Set-Clipboard "ctl00_ImageButton_Dysten.click()"
+	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
+	Start-Sleep -Milliseconds 250
+	Set-Clipboard "ctl00_ContentPlaceHolder1_ImageButton_StartDysten.click()"
+	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
+	Start-Sleep -Milliseconds 250
+	Set-Clipboard "ctl00_ContentPlaceHolder1_ImageButton_StartNormal.click()"
+	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
+	Start-Sleep -Milliseconds 250
+}
+
 function CheckForUpdates {
 	Write-Output "Checking for updates..."
 	$HTML = Invoke-WebRequest -Uri "https://sv3ks.github.io/EMatDystenBot/web/releases/latest/"
@@ -39,12 +51,15 @@ function CheckForUpdates {
 }
 
 CheckForUpdates
-
+Start-Sleep -Seconds 1
 Start-Process chrome -ArgumentList "$URL" -PassThru | Out-Null # Open Website
-
-Write-Output "Please go through login process and return to harvesting site. (Press any key when done)"
+Start-Sleep -Seconds 1
+[System.Windows.Forms.SendKeys]::SendWait("{F12}") # Open Console
+Start-Sleep -Seconds 1
+Write-Output "Please open the console and go through login process. (Press any key when done)"
+Start-Sleep -Seconds 1
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-Write-Output "Return to browser. Beginning in"
+Write-Output "Return to the browser and make sure the console is selected. Beginning in"
 Write-Output "3"
 Start-Sleep -Seconds 1
 Write-Output "2"
@@ -52,7 +67,7 @@ Start-Sleep -Seconds 1
 Write-Output "1"
 Start-Sleep -Seconds 1
 Write-Output "Beginning exercise harvesting. You can stop at any moment by closing this window."
-[System.Windows.Forms.SendKeys]::SendWait("{F12}") # Open Console
+GoToHarvestingSite
 $i = 0
 while($true) {
 	Start-Sleep -Milliseconds 250

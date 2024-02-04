@@ -2,7 +2,7 @@ $VERSION = "v1.1.0"
 $URL = "https://emat.dk/"
 $SCRIPT1 = "ctl00_ContentPlaceHolder1_ImageButton_RegnehierarkietS.click()"
 $SCRIPT2 = "Link_Start2.click()"
-$SCRIPT3 = "for(let index=0;index<12;index++){Textbox_BrugersvarA.value=FacitA[ValgtSpg];img3.click();}"
+$SCRIPT3 = "for(let index=0;index<13;index++){Textbox_BrugersvarA.value=FacitA[ValgtSpg];img3.click();}"
 $SCRIPT4 = "img4.click()"
 $SCRIPT5 = "ctl00_ContentPlaceHolder1_ImageButton_VSelvStart.click()"
 Add-Type -AssemblyName System.Windows.Forms # Allows the script to use keyboard
@@ -10,7 +10,7 @@ Add-Type -AssemblyName System.Windows.Forms # Allows the script to use keyboard
 function StartNewExercise {
 	Set-Clipboard $SCRIPT1
 	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
-	Start-Sleep -Milliseconds 500
+	Start-Sleep -Milliseconds 250
 	Set-Clipboard $SCRIPT2
 	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
 }
@@ -18,10 +18,10 @@ function StartNewExercise {
 function SolveExercise {
 	Set-Clipboard $SCRIPT3
 	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
-	Start-Sleep -Milliseconds 500
+	Start-Sleep -Milliseconds 250
 	Set-Clipboard $SCRIPT4
 	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
-	Start-Sleep -Milliseconds 500
+	Start-Sleep -Milliseconds 250
 	Set-Clipboard $SCRIPT5
 	[System.Windows.Forms.SendKeys]::SendWait("^(v){ENTER}")
 }
@@ -53,11 +53,14 @@ Write-Output "1"
 Start-Sleep -Seconds 1
 Write-Output "Beginning exercise harvesting. You can stop at any moment by closing this window."
 [System.Windows.Forms.SendKeys]::SendWait("{F12}") # Open Console
+$i = 0
 while($true) {
-	Start-Sleep -Seconds 1
+	Start-Sleep -Milliseconds 250
 	StartNewExercise
-	Start-Sleep -Seconds 4 # Wait for exercise to begin
 	SolveExercise
+	$genpoints = ++$i*12*4 # exercises completed * questions pr exercise * points pr question
+	Clear-Host 
+	Write-Output "Generated Points: $genpoints"
 }
 Start-Sleep -Seconds 1
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

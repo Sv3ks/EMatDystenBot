@@ -1,4 +1,4 @@
-$VERSION = "v1.2.1"
+$VERSION = "v1.2.2"
 $URL = "https://emat.dk/"
 $SCRIPT1 = "ctl00_ContentPlaceHolder1_ImageButton_RegnehierarkietS.click()"
 $SCRIPT2 = "Link_Start2.click()"
@@ -73,7 +73,7 @@ while($true) {
 	Start-Sleep -Milliseconds 250
 	StartNewExercise
 	SolveExercise
-	$genpoints = ++$i*12*4 # exercises completed * questions pr exercise * points pr question
+	$genpoints = ++$i*12*4+($i*10) # exercises completed * questions pr exercise * points pr question
 	Clear-Host 
 	Write-Output "Generated Points: $genpoints"
 }

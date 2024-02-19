@@ -1,5 +1,11 @@
 # EMatDystenBot
-*A script that will automatically harvest points on the danish math website EMat*
+*A program that automatically harvests points for the 'EMat Dysten' on the danish math website EMat.dk*
+
+## Disclaimer & Terms of Use
+
+EMatDystenBot does not break any terms nor rules of EMat, and is completely legal to use - but - even though it is not against the rules of EMat, you are still in the risk of potentially being excluded from the contest (or maybe even the whole website).
+
+Therefore, I do not take any responsibility for your use of my program, nor do I take responsibility if you get excluded or banished from the website or contest because of it.
 
 ## How to install
 

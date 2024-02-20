@@ -4,7 +4,7 @@ ctk.set_appearance_mode('system')
 ctk.set_default_color_theme('dark-blue')
 
 root = ctk.CTk()
-root.geometry("500x400")
+root.geometry("450x400")
 root.title("EMatDystenBot")
 root.resizable(False,False)
 
@@ -35,9 +35,23 @@ UpdateDelayLabel(defaultDelay)
 
 limitFrame = ctk.CTkFrame(master=root)
 
-# REALISTIC
+limitLabel = ctk.CTkLabel(master=limitFrame,text="Limit")
+limitEntry = ctk.CTkEntry(master=limitFrame,placeholder_text="")
+
+# REALISM
 
 realismFrame = ctk.CTkFrame(master=root)
+
+realismLabel = ctk.CTkLabel(master=realismFrame,text="Loading...")
+
+defaultRealism = 2
+
+def UpdateRealismLabel(realism):
+	realismLabel.configure(text="Level of Realism: " + str(round(realism)))
+
+realismSlider = ctk.CTkSlider(master=realismFrame,from_=1,to=3,number_of_steps=2,command=UpdateRealismLabel)
+realismSlider.set(defaultRealism)
+UpdateRealismLabel(defaultRealism)
 
 # CONTROL PANEL
 
@@ -50,13 +64,24 @@ cpToggleFrame = ctk.CTkFrame(master=cpFrame, height=140, fg_color="transparent")
 
 cpToggleDelay = ctk.CTkSwitch(master=cpToggleFrame,text="Delay")
 cpToggleDelay.select()
+
 cpToggleLimit = ctk.CTkSwitch(master=cpToggleFrame,text="Limit")
 cpToggleLimit.select()
 cpToggleRealism = ctk.CTkSwitch(master=cpToggleFrame,text="Realism")
 cpToggleRealism.select()
 
 # CONTROL PANEL RUN
-cpRunFrame = ctk.CTkFrame(master=cpFrame, height=140)
+cpRunFrame = ctk.CTkFrame(master=cpFrame, height=140, fg_color="transparent")
+
+def Start():
+	print()
+
+cpStart = ctk.CTkButton(master=cpRunFrame, text="Start", command=Start)
+
+def Stop():
+	print()
+
+cpStop = ctk.CTkButton(master=cpRunFrame, text="Stop", command=Stop, state=ctk.DISABLED)
 
 # PLACING
 gridPadX = 10
@@ -71,7 +96,13 @@ delayLabel.place(relwidth=.75,relheight=.25,relx=.125,rely=.25)
 delaySlider.place(relwidth=.75,relheight=.175,relx=.125,rely=.5125)
 cpTitle.pack(anchor = "n")
 
-cpPadY = 15
+limitLabel.place(relwidth=.75,relheight=.25,relx=.125,rely=.25)
+limitEntry.place(relwidth=.50,relheight=.175,relx=.25,rely=.5125)
+
+realismLabel.place(relwidth=.75,relheight=.25,relx=.125,rely=.25)
+realismSlider.place(relwidth=.75,relheight=.175,relx=.125,rely=.5125)
+
+cpPadY = 40
 
 cpToggleFrame.pack(anchor = "n", pady = cpPadY, fill = "x")
 cpToggleFrame.columnconfigure(0, weight=1)
@@ -86,5 +117,13 @@ cpToggleLimit.grid(row = 1, column = 0, pady = cpTogglePadY)
 cpToggleRealism.grid(row = 2, column = 0, pady = cpTogglePadY)
 
 cpRunFrame.pack(anchor = "n", pady = cpPadY, fill = "x")
+cpRunFrame.columnconfigure(0, weight=1)
+cpRunFrame.rowconfigure(0, weight=1)
+cpRunFrame.rowconfigure(1, weight=1)
+
+cpRunPadY = 2
+
+cpStart.grid(row = 0, column = 0, pady = cpTogglePadY)
+cpStop.grid(row = 1, column = 0, pady = cpTogglePadY)
 
 root.mainloop()

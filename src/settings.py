@@ -1,8 +1,9 @@
 import json
 
-def Load():
-	print("load settings")
+def Load(fileName):
+	file = open(fileName)
+	return json.load(file)
 
-def Save(settings):
-	file = open('settings.json', 'w')
-	json.dump(settings, file)
+def Save(settings, fileName, indent):
+	file = open(fileName, 'w')
+	json.dump(settings, file, indent=indent)

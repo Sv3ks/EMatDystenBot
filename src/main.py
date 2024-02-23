@@ -1,9 +1,15 @@
-from template import settings
-from settings import Save, Load
-import json
+from templates import templates
+import settings
 import ui
 
-Save({"test":"hello"})
+fileName = "settings.json"
+load = {}
 
-#ui.Init()
-#ui.Start()
+try:
+	load = settings.Load(fileName)
+except:
+	load = templates["settings"]
+
+load = ui.Start(load)
+
+settings.Save(load,fileName,4)

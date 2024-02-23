@@ -2,7 +2,7 @@ import customtkinter as ctk
 
 root = ctk.CTk()
 
-def Init(settings):
+def Start(settings):
 	ctk.set_appearance_mode('system')
 	ctk.set_default_color_theme('dark-blue')
 
@@ -24,7 +24,7 @@ def Init(settings):
 
 	delayLabel = ctk.CTkLabel(master=delayFrame,text="Loading...")
 
-	defaultDelay = 250
+	defaultDelay = settings["delay"]
 
 	def UpdateDelayLabel(delay):
 		delayLabel.configure(text="Delay: "+ str(round(delay)) + "ms")
@@ -39,7 +39,7 @@ def Init(settings):
 
 	limitLabel = ctk.CTkLabel(master=limitFrame,text="Limit")
 
-	defaultLimit = 100
+	defaultLimit = settings["limit"]
 
 	def UpdateLimitLabel(limit):
 		limitLabel.configure(text="Limit: "+ str(round(limit)) + "K points")
@@ -54,7 +54,7 @@ def Init(settings):
 
 	realismLabel = ctk.CTkLabel(master=realismFrame,text="Loading...")
 
-	defaultRealism = 2
+	defaultRealism = settings["realism"]
 
 	def UpdateRealismLabel(realism):
 		realismLabel.configure(text="Level of Realism: " + str(round(realism)))
@@ -138,8 +138,14 @@ def Init(settings):
 
 	cpRunPadY = 2
 
-	cpStart.grid(row = 0, column = 0, pady = cpTogglePadY)
-	cpStop.grid(row = 1, column = 0, pady = cpTogglePadY)
-
-def Start():
+	cpStart.grid(row = 0, column = 0, pady = cpRunPadY)
+	cpStop.grid(row = 1, column = 0, pady = cpRunPadY)
+	
 	root.mainloop()
+
+	settings["delay"] = round(delaySlider.get())
+	settings["limit"] = round(limitSlider.get())
+	settings["realism"] = round(realismSlider.get())
+
+
+	return settings
